@@ -1,0 +1,32 @@
+.fade-in-form {
+    animation: fadeIn 1s;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.button-container{
+    display: flex;
+    margin: 0% 2%;
+}
+
+.delete-button{
+    margin-left: 20px;
+}
+
+.table-container{
+    margin: 2% 2% 2% 2%;
+    max-width: 95%;
+    background-color: #FEFEFE;
+    border-radius: 20px;
+}
+
+.table-responsive{
+    overflow-x: scroll; 
+}

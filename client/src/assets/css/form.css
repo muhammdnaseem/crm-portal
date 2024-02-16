@@ -1,0 +1,13 @@
+.form-container{
+    margin: 2%;
+    background-color: #FEFEFE;
+    padding: 20px 0;
+    border-radius: 20px;
+    min-width: 95%;
+    table-layout: fixed;
+}
+
+.input-col
+{
+    width: auto;
+}

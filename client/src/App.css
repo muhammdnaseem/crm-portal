@@ -1,0 +1,12 @@
+button{
+    color: white;
+}
+/* Add these styles to your CSS file */
+.hamburger .hamb-top,
+.hamburger .hamb-middle,
+.hamburger .hamb-bottom {
+  background-color: white;
+}
+#loginsidebar{
+    display: none;
+}
