@@ -8,36 +8,12 @@ import Table from '../components/Table';
 import Fade from 'react-reveal/Fade';
 import { MdDelete } from "react-icons/md";
 import {styles} from '../constants/styles';
+import {useDataContext} from './DataContext';
 
 function Leads() {
     const [showForm, setShowForm] = useState(false);
-    const [tableData, setTableData] = useState([{ 
-    Id: 1, 
-    LeadName: "First Lead",
-    Responce: "",
-    Phone: "0300-00000000",
-    Agent: "Agent1",
-    Project: "XML",
-    City: "Lahore",
-    Date: "Date",
-    Comments: "Comments",
-    Reminders: "Follow Up",
-    Status: "Cold",
-  },
-
-   { 
-    Id: 2, 
-    LeadName: "second Lead",
-    Responce: "",
-    Phone: "0300-00000000",
-    Agent: "Agent2",
-    Project: "XML",
-    City: "Isl",
-    Date: "Date",
-    Comments: "Comments",
-    Reminders: "Follow Up",
-    Status: "Cold",
-  }]);
+    const { leadTableData, updateLeadData, projectData, agentsData } = useDataContext();
+    const [tableData, setTableData] = useState([]);
 
      const handleAddLeadClick = () => {
         setShowForm(!showForm); // Toggle the visibility of the form
@@ -85,7 +61,8 @@ function Leads() {
         {
             title: "Project Name",
             type: "select",
-            options: ["First Project", "Second Project", "Third Project"],
+            options: projectData.map(project => project.projectname),
+            values: projectData.map(project => project.id),
             rows: 0,
             placeholder: "Type Lead Name"
         },
@@ -116,28 +93,29 @@ function Leads() {
         {
             title: "Status",
             type: "select",
-            options: ["First Project", "Second Project", "Third Project"],
+            options: ["Sold Out", "Sale"],
             rows: 0,
             placeholder: "Type Lead Name"
         },
         {
             title: "Allocated To",
             type: "select",
-            options: ["First Project", "Second Project", "Third Project"],
+            options: agentsData.map(project => project.name),
+            values: agentsData.map(project => project.id),
             rows: 0,
             placeholder: "Type Name"
         },
         {
             title: "Temperature",
             type: "select",
-            options: ["First Project", "Second Project", "Third Project"],
+            options: ["Hot", "Cold"],
             rows: 0,
             placeholder: "Type Lead Name"
         },
         {
             title: "Source",
             type: "select",
-            options: ["First Project", "Second Project", "Third Project"],
+            options: ["Facebook", "Twiter", "Instagram"],
             rows: 0,
             placeholder: "Type Lead Name"
         },
@@ -163,52 +141,22 @@ function Leads() {
 
  const tableheadrow = [
   {
-    col1: "Sr",
-    col2: "Name",
-    col3: "Responce",
-    col4: "Phone #",
-    col5: "Agent",
-    col6: "Project",
-    col7: "City",
-    col8: "Date",
-    col9: "Comments",
-    col10: "Reminders",
-    col11: "Status",
+    col1: "ID",
+    col2: "Project",
+    col3: "Name",
+    col4: "Email",
+    col5: "Phone",
+    col6: "City",
+    col7: "Status",
+    col8: "Agent",
+    col9: "Temperature",
+    col10: "Source",
+    col11: "Description",
   },
   // Add more header columns if needed
 ];
 
-const initialtableData = [
-  { 
-    Id: 1, 
-    LeadName: "First Lead",
-    Responce: "",
-    Phone: "0300-00000000",
-    Agent: "Agent1",
-    Project: "XML",
-    City: "Lahore",
-    Date: "Date",
-    Comments: "Comments",
-    Reminders: "Follow Up",
-    Status: "Cold",
-  },
 
-   { 
-    Id: 2, 
-    LeadName: "second Lead",
-    Responce: "",
-    Phone: "0300-00000000",
-    Agent: "Agent2",
-    Project: "XML",
-    City: "Isl",
-    Date: "Date",
-    Comments: "Comments",
-    Reminders: "Follow Up",
-    Status: "Cold",
-  },
-  
-  
-];
 
 
     return (
@@ -217,9 +165,11 @@ const initialtableData = [
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add Lead" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddLeadClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Lead" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddLeadClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -229,27 +179,11 @@ const initialtableData = [
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddLeadClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddLeadClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddLeadClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddLeadClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddLeadClick}/>
-            </div>
-         </div>
-            <Table tablerow={tableData} tablehead={tableheadrow}/>
+          
+            <Table 
+            tablerow={leadTableData} 
+            tablehead={tableheadrow}
+            datasource="leadsdata"/>
         </div>
         </div>
       

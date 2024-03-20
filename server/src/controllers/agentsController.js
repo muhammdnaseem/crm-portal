@@ -31,15 +31,15 @@ const setAgent = async (req, res) => {
 const updateAgent = async (req, res) => {
     
     try {
-        const { id, name, email, city, commission, address, dob, image, persontype, fathername, cnic, mobile, project, description } = req.body;
+        const { id, name, email, city, commission, address, dob, image, persontype, father } = req.body;
 
         // Ensure required fields are present in the request
-        if (!id || !name || !email || !city || !commission || !address || !dob || !image || !persontype || !fathername || !cnic || !mobile || !project || !description) {
+        if (!id || !name || !email || !city || !commission || !address || !dob || !image || !persontype || !fathername ) {
             return res.status(400).json({ error: "Missing required fields." });
         }
 
         // Update project in the "projects" table
-        const sql = "UPDATE agents SET name = ?, email = ?, city = ?, commission = ?, address = ?, dob = ?, image = ?, person_type = ?, father_name = ?, cnic = ?, mobile = ?, project_id = ?, description = ? WHERE id = ?";
+        const sql = "UPDATE agents SET name = ?, email = ?, city = ?, commission = ?, address = ?, dob = ?, image = ?, person_type = ?, father_name = ? WHERE id = ?";
 
         con.query(sql, [name, email, city, commission, address, dob, image, persontype, fathername, cnic, mobile, project, description, id], (error, result) => {
             if (error) {

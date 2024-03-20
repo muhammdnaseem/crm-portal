@@ -93,7 +93,7 @@ function Affiliates() {
             title: "Project",
             type: "select",
             options: projectData.map(project => project.projectname),
-            values: projectData.map(project => project.ID),
+            values: projectData.map(project => project.id),
             rows: 0,
             placeholder: "Type father name"
         },
@@ -170,48 +170,7 @@ const handleSaveAgentClick = async (formData) => {
   // Add more header columns if needed
 ];
 
-const tableData = [
-  { 
-    Id: 1, 
-    AffiliateName: "First Affiliate",
-    Commision: "",
-    Email: "Affiliate1@gmail.com",
-    CreatedAt: "",
-    EmailVerifiedAt: "",
-    Avatar: "",
-    Role: "",
-    Roles: "",
-    Customers: "",
-  },
 
-  { 
-    Id: 2, 
-    AffiliateName: "second Affiliate",
-    Commision: "",
-    Email: "Affiliate2@gmail.com",
-    CreatedAt: "",
-    EmailVerifiedAt: "",
-    Avatar: "",
-    Role: "",
-    Roles: "",
-    Customers: "",
-  },
-
-  { 
-    Id: 3, 
-    AffiliateName: "Thired Affiliate",
-    Commision: "",
-    Email: "Affiliate3@gmail.com",
-    CreatedAt: "",
-    EmailVerifiedAt: "",
-    Avatar: "",
-    Role: "",
-    Roles: "",
-    Customers: "",
-  },
-  
-  
-];
 
 
     return (
@@ -220,9 +179,10 @@ const tableData = [
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add Affiliate" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddAffiliateClick}/>
           </div>  
-        <div className="delete-button">
+       {/* <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Affiliate" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddAffiliateClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -231,27 +191,11 @@ const tableData = [
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddAffiliateClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddAffiliateClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddAffiliateClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddAffiliateClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddAffiliateClick}/>
-            </div>
-         </div>
-            <Table tablerow={agentsTableData} tablehead={tableheadrow}/>
+          
+            <Table 
+            tablerow={agentsTableData} 
+            tablehead={tableheadrow}
+            datasource="agentsdata"/>
         </div>
         </div>
       

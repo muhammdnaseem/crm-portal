@@ -4,16 +4,16 @@ const setMerge = async (req, res) => {
     
     try {
 
-        const { customer, referencenumname, transferfee, agent, plot1, plot2, cniccopy} = req.body;
+        const { customer, refnum, transferfee, agent, plot1, plot2, cniccopy} = req.body;
 
         // Ensure required fields are present in the request
-        if (!customer || !referencenumname || !transferfee || !agent || !plot1 || !plot2 || !cniccopy ) {
+        if (!customer || !refnum || !transferfee || !agent || !plot1 || !plot2 || !cniccopy ) {
             return res.status(400).json({ error: "Missing required fields." });
         }
 
         // Insert user into the "users" table
-       const sql = "INSERT INTO mergerequests (customer_id, reference_id, serial_num, transfer_fee, agent_id, plot_first_id, plot_sec_id, cnic_copy) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        con.query(sql, [order, name, fee, slug], (error, result) => {
+       const sql = "INSERT INTO mergerequests (customer_id, reference_num, transfer_fee, agent_id, plot_first_id, plot_sec_id, cnic_copy) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        con.query(sql, [customer, refnum, transferfee, agent, plot1, plot2, cniccopy], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
@@ -35,17 +35,17 @@ const setMerge = async (req, res) => {
 const updateMerge = async (req, res) => {
     
     try {
-        const { id, projectname, description, totalmarla, blocks, agents } = req.body;
+        const { id, customer, refnum, transferfee, agent, plot1, plot2, cniccopy } = req.body;
 
         // Ensure required fields are present in the request
-        if (!id || !projectname || !description || !totalmarla || !blocks || !agents) {
+        if ( !id || !customer || !refnum || !transferfee || !agent || !plot1 || !plot2 || !cniccopy) {
             return res.status(400).json({ error: "Missing required fields." });
         }
 
         // Update project in the "projects" table
-        const sql = "UPDATE projects SET projectname = ?, description = ?, totalmarla = ?, block_id = ?, agent_id = ? WHERE id = ?";
+        const sql = "UPDATE mergerequests SET customer_id = ?, reference_num = ?, transfer_fee = ?, agent_id = ?, plot_first_id = ?, plot_sec_id = ?, cnic_copy = ? WHERE id = ?";
 
-        con.query(sql, [projectname, description, totalmarla, blocks, agents, id], (error, result) => {
+        con.query(sql, [customer, refnum, transferfee, agent, plot1, plot2, cniccopy, id], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
@@ -71,7 +71,7 @@ const deleteMerge = async (req, res) => {
         }
 
         // Delete project from the "projects" table
-        const sql = "DELETE FROM projects WHERE id = ?";
+        const sql = "DELETE FROM mergerequests WHERE id = ?";
         con.query(sql, [id], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
@@ -91,7 +91,8 @@ const deleteMerge = async (req, res) => {
 const getMerge = async (req, res) => {
     try {
         // Select data from the "blocks" table
-        const sql = "SELECT * FROM mergerequests";
+        const sql = "SELECT mergerequests.*, customers.customer_name AS customer, agents.name AS agent_name FROM mergerequests INNER JOIN customers ON mergerequests.customer_id = customers.id INNER JOIN agents ON mergerequests.agent_id = agents.id";
+        
         
         con.query(sql, (error, result) => {
             if (error) {
@@ -109,4 +110,4 @@ const getMerge = async (req, res) => {
     }
 };
 
-module.exports = { setMerge, getMerge };
+module.exports = { setMerge, getMerge, updateMerge, deleteMerge };

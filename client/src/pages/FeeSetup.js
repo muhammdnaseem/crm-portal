@@ -128,9 +128,11 @@ function FeeSetup() {
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add Fee" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddFeeClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Fee" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddFeeClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -139,27 +141,11 @@ function FeeSetup() {
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddFeeClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddFeeClick}/>
-            </div>
          
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddFeeClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddFeeClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddFeeClick}/>
-            </div>
-         </div>
-            <Table tablerow={feeTableData} tablehead={tableheadrow}/>
+            <Table 
+            tablerow={feeTableData}
+             tablehead={tableheadrow}
+             datasource="feesdata"/>
         </div>
         </div>
       

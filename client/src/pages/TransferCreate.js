@@ -8,9 +8,12 @@ import Table from '../components/Table';
 import Fade from 'react-reveal/Fade';
 import { MdDelete } from "react-icons/md";
 import {styles} from '../constants/styles';
+import { useDataContext } from './DataContext';
 
 function TransferCreate() {
     const [showForm, setShowForm] = useState(false);
+    const { projectData, transferTableData, updateCategoriesData, customerData, agentsData } = useDataContext();
+
     const [inputs, setInputs] = useState([
       {
             title: "File Name",
@@ -49,69 +52,72 @@ function TransferCreate() {
         {
             title: "Agent",
             type: "select",
-            options: ["Agent 1", "Agent 2"],
+            options: agentsData.map(customer => customer.name),
+            values: agentsData.map(customer => customer.id),
             rows: 0,
             placeholder: "Type Marla"
         },
         {
             title: "Transferer",
             type: "select",
-            options: ["Transfer-A", "Transfer-B", "Transfer 1", "Transfer 2"],
+            options: customerData.map(customer => customer.customer_name),
+            values: customerData.map(customer => customer.id),
             rows: 0,
             placeholder: "Type Description"
         },
         {
             title: "Transfaree",
             type: "select",
-            options: ["Transfer-A", "Transfer-B", "Transfer 1", "Transfer 2"],
+            options: customerData.map(customer => customer.customer_name),
+            values: customerData.map(customer => customer.id),
             rows: 0,
             placeholder: "Type Description"
         },
         
         
 
-        {
-            title: "Name Of Nominee",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount",
-            NextLineclass: "start-small-form",
-            Inputclass: "small-form"
-        },
+        // {
+        //     title: "Name Of Nominee",
+        //     type: "text",
+        //     rows: 0,
+        //     placeholder: "Type Commission Amount",
+        //     NextLineclass: "start-small-form",
+        //     Inputclass: "small-form"
+        // },
 
-        {
-            title: "Name of Father/Husband",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount",
-            Inputclass: "small-form"
-        },
-        {
-            title: "Relationship",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount",
-            Inputclass: "small-form"
-        },
-        {
-            title: "CNIC ",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount"
-        },
-        {
-            title: "Phone",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount"
-        },
-        {
-            title: "Add More",
-            type: "button",
-            rows: 0,
-            placeholder: "Add More",
-            icon: <MdAddBusiness />
-        },
+        // {
+        //     title: "Name of Father/Husband",
+        //     type: "text",
+        //     rows: 0,
+        //     placeholder: "Type Commission Amount",
+        //     Inputclass: "small-form"
+        // },
+        // {
+        //     title: "Relationship",
+        //     type: "text",
+        //     rows: 0,
+        //     placeholder: "Type Commission Amount",
+        //     Inputclass: "small-form"
+        // },
+        // {
+        //     title: "CNIC ",
+        //     type: "text",
+        //     rows: 0,
+        //     placeholder: "Type Commission Amount"
+        // },
+        // {
+        //     title: "Phone",
+        //     type: "text",
+        //     rows: 0,
+        //     placeholder: "Type Commission Amount"
+        // },
+        // {
+        //     title: "Add More",
+        //     type: "button",
+        //     rows: 0,
+        //     placeholder: "Add More",
+        //     icon: <MdAddBusiness />
+        // },
         
         {
             title: "Application Form",
@@ -216,12 +222,12 @@ function TransferCreate() {
     transfaree: formData.transfaree,
     applicationform: formData.applicationform,
     bookingform: formData.bookingform,
-    authorityholderphoto: formData.authorityholderphoto,
-    transferfeecopy: formData.transferfeecopy, // Fixed typo here
+    authorityholderphoto: formData.authorityholderphoto || " null ",
+    transferfeecopy: formData.transferfeecopy || " null ", // Fixed typo here
     validndc: formData.validndc,
+    validpaymentplan: formData.validpaymentplan || " null ",
     surchargereport: formData.surchargereport,
-    correctsurchargereport: formData.correctsurchargereport,
-    validpaymentplan: formData.validpaymentplan,
+    correctsurchargereport: formData.correctsurchargereport || " null ",
     sellerdata: formData.sellerdata,
     thumbimpression: formData.thumbimpression,
     };
@@ -237,12 +243,11 @@ function TransferCreate() {
         body: JSON.stringify(newTransfer),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      
 
       const result = await response.json();
       console.log(result);
+      
     } catch (error) {
       console.error('Error adding project:', error.message);
     }
@@ -251,62 +256,16 @@ function TransferCreate() {
  
 
 
-    const handleRepeatFormClick = () => {
-  const newInputSet = [
-    {
-            title: "Name Of Nominee",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount",
-            NextLineclass: "start-small-form",
-        },
-
-        {
-            title: "Name of Father/Husband",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount"
-        },
-        {
-            title: "Relationship",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount"
-        },
-        {
-            title: "CNIC #",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount"
-        },
-        {
-            title: "Phone",
-            type: "text",
-            rows: 0,
-            placeholder: "Type Commission Amount"
-        },
-   
-    
-  ];
-
-  // Find the index of the element after which you want to insert the new elements
-    const insertIndex = inputs.findIndex((input) => input.title === "Add More");
-
-    // Update the Inputs state by inserting the new elements at the appropriate position
-    setInputs((prevInputs) => [
-      ...prevInputs.slice(0, insertIndex),
-      ...newInputSet,
-      ...prevInputs.slice(insertIndex),
-    ]);
-};
+ 
 
  const tableheadrow = [
   {
     col1: "ID",
     col2: "Transfer Name",
-    col3: "Transfer Name",
-    col4: "Total Marla",
-    col5: "Description",
+    col3: "Transfaree Name",
+    col4: "File No",
+    col5: "Application Form",
+    col6: "Seller Data",
   },
   // Add more header columns if needed
 ];
@@ -320,40 +279,23 @@ function TransferCreate() {
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add Transfer" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddTransferClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Transfer" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddTransferClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
                 <Form inputs={inputs}
                 onSave={handleSaveTransferClick}
-                onRepeatForm={handleRepeatFormClick}  />
+                  />
                 </Fade>
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddTransferClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddTransferClick}/>
-            </div>
          
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddTransferClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddTransferClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddTransferClick}/>
-            </div>
-         </div>
-            <Table tablerow={tableData} tablehead={tableheadrow}/>
+            <Table tablerow={transferTableData} tablehead={tableheadrow}/>
         </div>
         </div>
       

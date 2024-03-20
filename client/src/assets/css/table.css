@@ -33,3 +33,27 @@ th{
 .popup{
     width: 600px;
 }
+.table-container{
+  width: 100%;
+  overflow-x: auto;
+}
+button.pdfbutton{
+    background-color: blue;
+    padding: 5px 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+button.pdfbutton:hover{
+    background-color: white;
+    color: blue;
+}
+button.xlbutton{
+    background-color: green;
+   
+}
+button.xlbutton:hover{
+    background-color: white;
+    color: green;
+}

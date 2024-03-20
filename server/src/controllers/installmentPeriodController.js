@@ -33,17 +33,17 @@ const setInstallmentPeriod = async (req, res) => {
 const updateInstallmentPeriod = async (req, res) => {
     
     try {
-        const { id, addinstallmentperiod } = req.body;
+        const { id, installmentperiodname } = req.body;
 
         // Ensure required fields are present in the request
-        if (!id || !addinstallmentperiod ) {
+        if (!id || !installmentperiodname ) {
             return res.status(400).json({ error: "Missing required fields." });
         }
 
         // Update project in the "projects" table
         const sql = "UPDATE installmentperiod SET installment_period = ? WHERE id = ?";
 
-        con.query(sql, [addinstallmentperiod, id], (error, result) => {
+        con.query(sql, [installmentperiodname, id], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });

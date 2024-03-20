@@ -12,17 +12,8 @@ import { useDataContext } from './DataContext';
 
 function InstallmentPeriod() {
     const [showForm, setShowForm] = useState(false);
-    const [tableData, setTableData] = useState([{ 
-    Id: 1, 
-    InstallmentPeriodName: "First InstallmentPeriod",
-    DisplayName: "InstallmentPeriod1",
-  },
-
-   { 
-    Id: 2, 
-    InstallmentPeriodName: "Second InstallmentPeriod",
-    DisplayName: "InstallmentPeriod2",
-  }]);
+    const { installmentperiodTableData, updateInstallmentperiodData } = useDataContext();
+    const [tableData, setTableData] = useState([]);
 
      const handleAddInstallmentPeriodClick = () => {
         setShowForm(!showForm); // Toggle the visibility of the form
@@ -30,6 +21,7 @@ function InstallmentPeriod() {
 
     const handleSaveInstallmentPeriodClick = async (formData) => {
     // Your existing code to save the block
+    
     const newInstallmentPeriod = {
         addinstallmentperiod: formData.addinstallmentperiod,
     };
@@ -81,27 +73,11 @@ function InstallmentPeriod() {
  const tableheadrow = [
   {
     col1: "ID",
-    col2: "Time Duration",
-    col3: "Date",
+    col2: "installment Period",
   },
   // Add more header columns if needed
 ];
 
-const initialtableData = [
-  { 
-    Id: 1, 
-    InstallmentPeriodName: "First InstallmentPeriod",
-    DisplayName: "InstallmentPeriod1",
-  },
-
-   { 
-    Id: 2, 
-    InstallmentPeriodName: "Second InstallmentPeriod",
-    DisplayName: "InstallmentPeriod2",
-  },
-  
-  
-];
 
 
     return (
@@ -109,10 +85,12 @@ const initialtableData = [
         <div className="button-container">
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add InstallmentPeriod" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddInstallmentPeriodClick}/>
-          </div>  
+          </div> 
+          {/* 
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete InstallmentPeriod" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddInstallmentPeriodClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -122,27 +100,12 @@ const initialtableData = [
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddInstallmentPeriodClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddInstallmentPeriodClick}/>
-            </div>
          
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddInstallmentPeriodClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddInstallmentPeriodClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddInstallmentPeriodClick}/>
-            </div>
-         </div>
-            <Table tablerow={tableData} tablehead={tableheadrow}/>
+            <Table 
+            tablerow={installmentperiodTableData} 
+            tablehead={tableheadrow}
+            datasource="installmentperioddata"
+            />
         </div>
         </div>
       

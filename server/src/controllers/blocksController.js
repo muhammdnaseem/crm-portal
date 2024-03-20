@@ -34,7 +34,7 @@ const setBlock = async (req, res) => {
 const updateBlock = async (req, res) => {
     
     try {
-        const { id, blockname, project, totamarla, description } = req.body;
+        const { id, blockname, projectname, totamarla, description } = req.body;
 
         // Ensure required fields are present in the request
         if (!id || !blockname || !project || !totamarla || !description) {
@@ -91,7 +91,9 @@ const deleteBlock = async (req, res) => {
 const getBlock = async (req, res) => {
     try {
         // Select data from the "blocks" table
-        const sql = "SELECT * FROM blocks";
+        const sql = "SELECT blocks.*, projects.projectname AS project_name FROM blocks INNER JOIN projects ON blocks.project_id = projects.id";
+        // SELECT blocks.*, projects.projectname AS project_name FROM blocks INNER JOIN projects ON blocks.project_id = projects.id
+       
         
         con.query(sql, (error, result) => {
             if (error) {
@@ -99,14 +101,15 @@ const getBlock = async (req, res) => {
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
             }
 
-            console.log("Blocks successfully retrieved from the database");
+            console.log("Blocks successfully retrieved from the database with agent names");
             res.status(200).json(result); // Sending the result (rows) as a JSON response
         });
 
     } catch (error) {
-        console.error("Error in getBlock function:", error);
+        console.error("Error in getProject function:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
+
 
 module.exports = { setBlock, getBlock, updateBlock, deleteBlock };

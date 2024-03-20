@@ -49,6 +49,8 @@ const { projectData, blocksTableData, updateBlockData } = useDataContext();
     }
   };
 
+
+  
   const inputs = [
     {
       title: "Block Name",
@@ -60,7 +62,7 @@ const { projectData, blocksTableData, updateBlockData } = useDataContext();
       title: "Project Name",
       type: "select",
       options: projectData.map(project => project.projectname),
-      values: projectData.map(project => project.ID),
+      values: projectData.map(project => project.id),
       rows: 0,
       placeholder: "Select Project",
     },
@@ -106,9 +108,11 @@ const { projectData, blocksTableData, updateBlockData } = useDataContext();
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add Block" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddBlockClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Block" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddBlockClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -120,27 +124,13 @@ const { projectData, blocksTableData, updateBlockData } = useDataContext();
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddBlockClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddBlockClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddBlockClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddBlockClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddBlockClick}/>
-            </div>
-         </div>
-            <Table tablerow={blocksTableData} tablehead={tableheadrow}/>
+          
+            <Table 
+            tablerow={blocksTableData} 
+            tablehead={tableheadrow}
+            datasource="blocksdata"
+            
+            />
         </div>
         </div>
       

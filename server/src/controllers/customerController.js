@@ -1,25 +1,25 @@
 const con = require("../db/dbCon");
 
-const setInstallmentType = async (req, res) => {
- 
+const setCategory = async (req, res) => {
+    
     try {
-        const { addinstallment, value, balloonpayment} = req.body;
+        const { name, slug} = req.body;
 
         // Ensure required fields are present in the request
-        if (!addinstallment || !value || !balloonpayment ) {
+        if (!name || !slug ) {
             return res.status(400).json({ error: "Missing required fields." });
         }
 
         // Insert user into the "users" table
-       const sql = "INSERT INTO installmenttype (installment, value, balloon_payment) VALUES (?, ?, ?)";
-        con.query(sql, [addinstallment, value, balloonpayment], (error, result) => {
+       const sql = "INSERT INTO categories (name, slug) VALUES (?, ?)";
+        con.query(sql, [name, slug], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
             }
 
-            console.log("Fee successfully saved to the database");
-            res.status(200).json({ message: "Installment Type Request successfully saved to the database" });
+            console.log("Category successfully saved to the database");
+            res.status(200).json({ message: "Category successfully saved to the database" });
         });
 
 
@@ -30,20 +30,21 @@ const setInstallmentType = async (req, res) => {
     }
 };
 
-const updateInstallmentType = async (req, res) => {
+
+const updateCategory = async (req, res) => {
     
     try {
-        const { id, installmenttypename, displayname, balloonpayment } = req.body;
+        const { id, name, slug } = req.body;
 
         // Ensure required fields are present in the request
-        if (!id || !installmenttypename || !displayname || !balloonpayment) {
+        if (!id || !name || !slug) {
             return res.status(400).json({ error: "Missing required fields." });
         }
 
         // Update project in the "projects" table
-        const sql = "UPDATE installmenttype SET installment = ?, value = ?, balloon_payment = ? WHERE id = ?";
+        const sql = "UPDATE categories SET name = ?, slug = ? WHERE id = ?";
 
-        con.query(sql, [installmenttypename, displayname, balloonpayment, id], (error, result) => {
+        con.query(sql, [name, slug, id], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
@@ -59,7 +60,7 @@ const updateInstallmentType = async (req, res) => {
     }
 };
 
-const deleteInstallmentType = async (req, res) => {
+const deleteCategory = async (req, res) => {
     try {
         const { id } = req.body;
 
@@ -69,7 +70,7 @@ const deleteInstallmentType = async (req, res) => {
         }
 
         // Delete project from the "projects" table
-        const sql = "DELETE FROM installmenttype WHERE id = ?";
+        const sql = "DELETE FROM categories WHERE id = ?";
         con.query(sql, [id], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
@@ -86,10 +87,10 @@ const deleteInstallmentType = async (req, res) => {
     }
 };
 
-const getInstallmentType = async (req, res) => {
+const getCustomer = async (req, res) => {
     try {
         // Select data from the "blocks" table
-        const sql = "SELECT * FROM installmenttype";
+        const sql = "SELECT * FROM customers";
         
         con.query(sql, (error, result) => {
             if (error) {
@@ -107,4 +108,4 @@ const getInstallmentType = async (req, res) => {
     }
 };
 
-module.exports = { setInstallmentType, getInstallmentType, updateInstallmentType, deleteInstallmentType };
+module.exports = { getCustomer};

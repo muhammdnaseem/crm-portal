@@ -119,14 +119,11 @@ function Users() {
   {
     col1: "ID",
     col2: "Name",
-    col3: "Commision",
-    col4: "Email",
-    col5: "Created At",
-    col6: "Email verified At",
-    col7: "Avatar",
-    col8: "Role",
-    col9: "Roles",
-    col10: "Customers",
+    col3: "Email",
+    col4: "Default Role",
+    col5: "Additional Role",
+    col6: "Locale",
+    col7: "Image",
   },
   // Add more header columns if needed
 ];
@@ -140,9 +137,11 @@ function Users() {
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add User" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddUserClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete User" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddUserClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -151,27 +150,11 @@ function Users() {
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddUserClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddUserClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddUserClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddUserClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddUserClick}/>
-            </div>
-         </div>
-            <Table tablerow={usersTableData} tablehead={tableheadrow}/>
+          
+            <Table 
+            tablerow={usersTableData} 
+            tablehead={tableheadrow}
+            datasource="usersdata"/>
         </div>
         </div>
       

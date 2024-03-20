@@ -12,7 +12,7 @@ import { useDataContext } from './DataContext';
 
 function InstallmentPlans() {
     const [showForm, setShowForm] = useState(false);
-    const [tableData, setTableData] = useState([]);
+    const { installmentTableData, updateInstallmentData, bookingData } = useDataContext();
 
      const handleAddInstallmentClick = () => {
         setShowForm(!showForm); // Toggle the visibility of the form
@@ -61,7 +61,8 @@ function InstallmentPlans() {
         {
             title: "Booking",
             type: "select",
-            options: ["Booking1", "Booking2"],
+            options: bookingData.map(project => project.file_id),
+            values: bookingData.map(project => project.id),
             rows: 0,
             placeholder: "Type Installment Name"
         },
@@ -69,26 +70,26 @@ function InstallmentPlans() {
             title: "Office Amount",
             type: "text",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type Office Amount"
         },
         {
             title: "Deal Amount",
             type: "text",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type Deal Amount"
         },
 
         {
             title: "Discount Amount",
             type: "text",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type Discount Amount"
         },
         {
             title: "Token",
             type: "text",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type Token"
         },
 
         {
@@ -101,13 +102,13 @@ function InstallmentPlans() {
             title: "Downpayment Amount",
             type: "text",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type Downpayment Amount"
         },
         {
             title: "Remaining Amount",
             type: "text",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type Remaining Amount"
         },
         {
             title: "Installment Period",
@@ -128,13 +129,13 @@ function InstallmentPlans() {
             title: "Per Month",
             type: "text",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type Per Month"
         },
         {
             title: "Dated",
             type: "date",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type Date"
         },
 
          {
@@ -152,12 +153,19 @@ function InstallmentPlans() {
 
  const tableheadrow = [
   {
-    col1: "SR#",
-    col2: "Installment Reference",
-    col3: "Customer",
-    col4: "Office size",
-    col5: "Fee",
-    col6: "Date",
+    col1: "ID",
+    col2: "Booking",
+    col3: "Office Amount",
+    col4: "Deal Amount",
+    col5: "Discount Amount",
+    col6: "Token",
+    col7: "Token Date",
+    col8: "Downpayment Amount",
+    col9: "Remaining Amount",
+    col10: "Installment Period",
+    col11: "installment Type",
+    col12: "Per Month",
+    col13: "Dated",
   },
   // Add more header columns if needed
 ];
@@ -171,9 +179,11 @@ function InstallmentPlans() {
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add Installment" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddInstallmentClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Installment" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddInstallmentClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -183,27 +193,11 @@ function InstallmentPlans() {
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddInstallmentClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddInstallmentClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddInstallmentClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddInstallmentClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddInstallmentClick}/>
-            </div>
-         </div>
-            <Table tablerow={tableData} tablehead={tableheadrow}/>
+          
+            <Table 
+            tablerow={installmentTableData} 
+            tablehead={tableheadrow} 
+            datasource="installmentsdata"/>
         </div>
         </div>
       

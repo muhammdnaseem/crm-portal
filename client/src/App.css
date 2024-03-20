@@ -10,3 +10,51 @@ button{
 #loginsidebar{
     display: none;
 }
+.hambcolor{
+    background-color: white;
+}
+@media (max-width: 400px) {
+    
+}
+
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #FEFEFE;
+    background-image: url("https://im.proptiger.com/1/720495/6/westend-avenue-elevation-4942168.jpeg"), linear-gradient(to right, #FEFEFE 50%, #080710 50%);
+    background-size: auto, 200% 100%;
+    background-position: center, 0 0;
+    background-repeat: no-repeat, no-repeat;
+    animation: gradientTransition 2s linear infinite;
+}
+
+@keyframes gradientTransition {
+    0% {
+        background-position-x: 100%;
+    }
+    20% {
+        background-position-x: 80%;
+    }
+    40% {
+        background-position-x: 60%;
+    }
+    60% {
+        background-position-x: 40%;
+    }
+    80% {
+        background-position-x: 20%;
+    }
+    100% {
+        background-position-x: 0;
+    }
+    
+}
+
+#wrapper{
+    background-color: black;
+}

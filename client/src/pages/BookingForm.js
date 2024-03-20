@@ -15,7 +15,7 @@ function BookingForm() {
     const [nomineeData, setNomineeData] = useState([]);
     var [nomineeNumber, setNomineeNumber] = useState(0);
     
-    const {agentsData, agentsTableData} = useDataContext();
+    const {agentsData, agentsTableData, bookingTableData, customerData} = useDataContext();
     const [inputs, setInputs] = useState([
       {
             title: "File Name",
@@ -42,14 +42,16 @@ function BookingForm() {
         {
             title: "Customer",
             type: "select",
-            options: ["BookingForm-A", "BookingForm-B", "BookingForm 1", "BookingForm 2"],
+            options: customerData.map(customer => customer.customer_name),
+            values: customerData.map(customer => customer.id),
             rows: 0,
             placeholder: "Type Description"
         },
         {
             title: "Agent",
             type: "select",
-            options: agentsData.map(agent=>agent.name),
+            options: agentsData.map(agent => agent.name),
+            values: agentsData.map(agent => agent.id),
             rows: 0,
             placeholder: "Type Description"
         },
@@ -72,47 +74,7 @@ function BookingForm() {
             placeholder: "Type Commission Amount",
         },
 
-        {
-      title: `Name Of Nominee ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount",
-      NextLineclass: "start-small-form",
-      Inputclass: "small-form"
-    },
-    {
-      title: `Name of Father Or Husband ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount",
-      Inputclass: "small-form"
-    },
-    {
-      title: `Relationship ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount",
-      Inputclass: "small-form"
-    },
-    {
-      title: `CNIC ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount"
-    },
-    {
-      title: `Phone ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount"
-    },
-        {
-            title: "Add More",
-            type: "button",
-            rows: 0,
-            placeholder: "Add More",
-            icon: <MdAddBusiness />
-        },
+  
         
         {
             title: "Financial Month",
@@ -132,44 +94,44 @@ function BookingForm() {
             title: "Dated",
             type: "date",
             rows: 0,
-            placeholder: "Type Commission Amount"
+            placeholder: " Date"
         },
         {
             title: "Payment Type",
             type: "select",
             options: ["Online", "Cash", "Cheque", ],
             rows: 0,
-            placeholder: "Type Commission Amount"
+            placeholder: "Type Payment type"
         },
         {
             title: "Downpayment",
             type: "text",
             rows: 0,
-            placeholder: "Type Commission Amount"
+            placeholder: "Type Downpayment Amount"
         },
         {
             title: "Token Payment",
             type: "text",
             rows: 0,
-            placeholder: "Type Commission Amount"
+            placeholder: "Type Token Amount"
         },
         {
             title: "DD or Pay Order",
             type: "text",
             rows: 0,
-            placeholder: "Type Commission Amount"
+            placeholder: "Pay Order"
         },
         {
             title: "Cheque",
             type: "text",
             rows: 0,
-            placeholder: "Type Commission Amount"
+            placeholder: "Cheque"
         },
         {
             title: "Cash Reciept",
             type: "text",
             rows: 0,
-            placeholder: "Type Commission Amount"
+            placeholder: "Type Cash Reciept"
         },
         {
             title: "Bank",
@@ -189,7 +151,7 @@ function BookingForm() {
             title: "Discount",
             type: "text",
             rows: 0,
-            placeholder: "Type Commission Amount"
+            placeholder: "Type Discount"
         },
          {
             title: "Submit",
@@ -218,37 +180,23 @@ const handleSaveBookingFormClick = async (formData) => {
         commission: formData.commission,
         plotprice: formData.plotprice,
         commissionamount: formData.commissionamount,
-        nominee: formData.nameofnominee + nomineeNumber,
         financialmonth: formData.financialmonth,
         financialyear: formData.financialyear,
         dated: formData.dated,
         paymenttype: formData.paymenttype,
         downpayment: formData.downpayment,
         tokenpayment: formData.tokenpayment,
-        ddorpayorder: formData.ddorpayorder,
+        ddorpayorder: formData.ddorpayorder || " ",
         cheque: formData.cheque,
         cashreciept: formData.cashreciept,
         bank: formData.bank,
         tenure: formData.tenure,
         discount: formData.discount,
     };
-    const newNominee = {
-        name: formData.nameofnominee + nomineeNumber,
-        husbandfathername: formData.nameoffatherorhusband + nomineeNumber,
-        relationship: formData.relationship + nomineeNumber,
-        cnic: formData.cnic + nomineeNumber,
-        phone: formData.phone + nomineeNumber,
-        
-    };
-     for (const key in newNominee) {
-    if (typeof newNominee[key] !== 'string' || isNaN(newNominee[key])) {
-      newNominee[key] = ' h '; // Set to empty string if NaN or not a string
-    }
-  }
-    setNomineeData((prevNomineeData) => [...prevNomineeData, newNominee]);
+   
 
     console.log(newBooking);
-    console.log(newNominee);
+
 
     try {
       const response = await fetch('http://localhost:4000/booking', {
@@ -256,27 +204,19 @@ const handleSaveBookingFormClick = async (formData) => {
         headers: {
           'Content-Type': 'application/json',
         },
+        
         body: JSON.stringify(newBooking),
       });
-      const responsenominee = await fetch('http://localhost:4000/nominee', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newNominee),
-      });
+   
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      else if(!responsenominee.ok){
-          throw new Error(`HTTP error! Status: ${responsenominee.status}`);
-      }
+   
 
       const result = await response.json();
       console.log(result);
-      const resultnominee = await responsenominee.json();
-      console.log(resultnominee);
+    
     } catch (error) {
       console.error('Error adding project:', error.message);
     }
@@ -285,66 +225,36 @@ const handleSaveBookingFormClick = async (formData) => {
  
 
 
-    const handleRepeatFormClick = () => {
-  setNomineeNumber(++nomineeNumber);
-  const newInputSet = [
-    {
-      title: `Name Of Nominee ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount",
-      NextLineclass: "start-small-form",
-      Inputclass: "small-form"
-    },
-    {
-      title: `Name of Father Or Husband ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount",
-      Inputclass: "small-form"
-    },
-    {
-      title: `Relationship ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount",
-      Inputclass: "small-form"
-    },
-    {
-      title: `CNIC ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount"
-    },
-    {
-      title: `Phone ${nomineeNumber}`,
-      type: "text",
-      rows: 0,
-      placeholder: "Type Commission Amount"
-    },
-  ];
 
-  // Find the index of the element after which you want to insert the new elements
-  const insertIndex = inputs.findIndex((input) => input.title === "Add More");
-
-  // Update the Inputs state by inserting the new elements at the appropriate position
-  setInputs((prevInputs) => [
-    ...prevInputs.slice(0, insertIndex),
-    ...newInputSet,
-    ...prevInputs.slice(insertIndex),
-  ]);
-};
 
 
  const tableheadrow = [
   {
     col1: "ID",
-    col2: "BookingForm Name",
-    col3: "BookingForm Name",
-    col4: "Total Marla",
-    col5: "Description",
+    col2: "File",
+    col3: "Reference",
+    col4: "Serial",
+    col5: "Customer",
+    col6: "Agent",
+    col7: "Commission",
+    col8: "Price",
+    col9: "Commission",
+    col10: "Fin Month",
+    col11: "Fin Year",
+    col12: "Dated",
+    col13: "Payment Type",
+    col14: "Downpayment",
+    col15: "Token Payment",
+    col16: "Pay Order",
+    col17: "Cheque",
+    col18: "Cash Reciept",
+    col19: "Bank",
+    col20: "Tenure",
+    col21: "Discount",
+    
+
   },
-  // Add more header columns if needed
+ 
 ];
 
 
@@ -356,40 +266,24 @@ const handleSaveBookingFormClick = async (formData) => {
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add BookingForm" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddBookingFormClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete BookingForm" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddBookingFormClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
                 <Form inputs={inputs}
                 onSave={handleSaveBookingFormClick}
-                onRepeatForm={handleRepeatFormClick}  />
+            
+                  />
                 </Fade>
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddBookingFormClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddBookingFormClick}/>
-            </div>
          
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddBookingFormClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddBookingFormClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddBookingFormClick}/>
-            </div>
-         </div>
-            <Table tablerow={tableData} tablehead={tableheadrow}/>
+            <Table tablerow={bookingTableData} tablehead={tableheadrow}/>
         </div>
         </div>
       

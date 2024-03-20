@@ -43,3 +43,11 @@
     width: 150px;
     padding-top: 20px;
 }
+.updatebutton{
+  background-color: #dfa24b;
+  border-radius: 20px;
+}
+
+.tablecolumn{
+  min-width: 150px;
+}

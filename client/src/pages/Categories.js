@@ -101,30 +101,6 @@ const { projectData, categoriesTableData, updateCategoriesData } = useDataContex
   // Add more header columns if needed
 ];
 
-const initialtableData = [
-  { 
-    Id: 1, 
-    CategoryName: "Residence",
-    Slug: "Residence",
-    
-  },
-   { 
-    Id: 2, 
-    CategoryName: "Residence",
-    Slug: "Residence",
-    
-  },
-   { 
-    Id: 3, 
-    CategoryName: "Residence",
-    Slug: "Residence",
-    
-  },
-
-  
-  
-  
-];
 
 
      return (
@@ -138,6 +114,7 @@ const initialtableData = [
             clickfunction={handleAddCategoryClick}
           />
         </div>
+        {/*
         <div className="delete-button">
           <Button
             buttonClass="transparent-button"
@@ -146,6 +123,7 @@ const initialtableData = [
             clickfunction={handleDeleteCategoryClick}
           />
         </div>
+        */}
       </div>
      {showForm && 
                  <Fade top>
@@ -162,6 +140,7 @@ const initialtableData = [
         <Table
           tablerow={categoriesTableData}
           tablehead={tableheadrow}
+          datasource="categoriesdata"
           checkedRows={checkedRows}
           onCheckboxChange={handleCheckboxChange}
           onDeleteRow={handleDeleteRow}

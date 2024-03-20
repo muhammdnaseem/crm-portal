@@ -118,9 +118,11 @@ const initialtableData = [
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add Role" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddRoleClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Role" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddRoleClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -130,27 +132,12 @@ const initialtableData = [
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddRoleClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddRoleClick}/>
-            </div>
          
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddRoleClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddRoleClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddRoleClick}/>
-            </div>
-         </div>
-            <Table tablerow={tableData} tablehead={tableheadrow}/>
+            <Table 
+            tablerow={roleTableData} 
+            tablehead={tableheadrow}
+            datasource="rolesdata"
+            />
         </div>
         </div>
       

@@ -71,11 +71,7 @@ function Form({ inputs, onSave, onRepeatForm }) {
                   submitclass={input.class}
                   selectoptions={input.options}
                   selectvalues={input.values}
-                  defaultvalue={
-                        input.title === "Email" && userEmail ||
-                        input.title === "Image" && userImage ||
-                        input.title === "ThirdCondition" && autofilvalue || ""
-                      }
+                 
                   Inputclassname={input.Inputclass}
                   handleChange={(e) => handleChange(e, input)}
                   handleSubmit={(e) => handleSubmit(e, input)}
@@ -95,11 +91,8 @@ function Form({ inputs, onSave, onRepeatForm }) {
                   inputcols={input.cols}
                   submitclass={input.class}
                   selectoptions={input.options}
-                  defaultvalue={
-                        input.title === "Email" && userEmail ||
-                        input.title === "Image" && userImage ||
-                        input.title === "ThirdCondition" && autofilvalue || ""
-                      }
+                  selectvalues={input.values}
+                  
 
                   handleChange={(e) => handleChange(e, input)}
                   handleSubmit={(e) => handleSubmit(e, input)}

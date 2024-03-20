@@ -139,8 +139,8 @@ html { height: 100%;}
     font-size: 23px;
     font-weight: 800;
     position: relative;
-    background:#212531;
-    background: linear-gradient(to right bottom, #2f3441 50%, #212531 50%);
+    background:#FEFEFE;
+    background: linear-gradient(to right bottom, #FEFEFE 50%, #FEFEFE 50%);
    padding-top: 0.7em;
    cursor: pointer;
 }
@@ -324,7 +324,11 @@ html { height: 100%;}
   z-index: 9999;
 }
 
-
+.crmlogosidebar{
+  width: 200px;
+  height: 120px;
+  margin-top: -40px;
+}
 /*-------------------------------*/
 /*            Overlay            */
 /*-------------------------------*/

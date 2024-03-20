@@ -15,50 +15,18 @@ function MergeRequest() {
   const [showRecord, setShowRecord] = useState(true);
   const [checkedRows, setCheckedRows] = useState([]);
 
-  const { userData, MergerequestTableData } = useDataContext();
+  const { userData, mergeRequestTableData, customerData } = useDataContext();
   // const userNames = userData.map(user => user.name);
   //  console.log(userData);
-    const [tableData, setTableData] = useState([
-  { 
-    Id: 1, 
-    ProjectName: "First Project",
-    Block: "Block-A",
-    FileNo: 9,
-    Size: "7 Marla",
-    Price: 30000,
-    Type: "Open",
-    Status: "Open",
-  },
-
-  { Id: 2,
-    ProjectName: "Second Project",
-    Block: "Block-B",
-    FileNo: 5,
-    Size: "10 Marla",
-    Price: 90000,
-    Type: "Sold Out",
-    Status: "Sold Out",
-  },
-
-  { Id: 3,
-    ProjectName: "Third Project",
-    Block: "Apartment-2",
-    FileNo: 17,
-    Size: "5 Marla",
-    Price: 70000,
-    Type: "Open",
-    Status: "Open",
-  },
-  
-  
-]);
+    const [tableData, setTableData] = useState([]);
 
 
     const [Inputs, setInputs] = useState([
         {
-            title: "UserName",
+            title: "CustomerName",
             type: "select",
-            options: userData.map(user => user.name),
+            options: customerData.map(customer => customer.customer_name),
+            values: customerData.map(customer => customer.id),
             rows: 0,
             placeholder: "---Choose---"
         },
@@ -69,12 +37,7 @@ function MergeRequest() {
             rows: 0,
             placeholder: "---Choose---"
         },
-        {
-            title: "Serial No",
-            type: "text",
-            rows: 0,
-            placeholder: "Type file no",
-        },
+        
         {
             title: "Transfer Fee",
             type: "text",
@@ -217,13 +180,13 @@ function MergeRequest() {
   const handleSaveMergerequestClick = async (formData) => {
     // Your existing code to save the block
     const newMergerequest = {
-        project: formData.project,
-        block: formData.block,
-        fileno: formData.fileno,
-        price: formData.price,
-        size: formData.size,
-        type: formData.type,
-        status: formData.status,
+        customer: formData.customername,
+        refnum: formData.referencenum,
+        transferfee: formData.transferfee,
+        agent: formData.agent,
+        plot1: formData.plot1,
+        plot2: formData.plot2,
+        cniccopy: formData.cniccopy,
     };
 
     console.log(newMergerequest);
@@ -278,13 +241,13 @@ function MergeRequest() {
  const tableheadrow = [
   {
     col1: "ID ",
-    col2: "Project",
-    col3: "Block",
-    col4: "File #",
-    col5: "Size",
-    col6: "Price",
-    col7: "Type",
-    col8: "Status",
+    col2: "Customer",
+    col3: "Ref No",
+    col4: "Transfer Fee",
+    col5: "Agent",
+    col6: "Plot 1",
+    col7: "Plot 2",
+    col8: "CNIC Copy",
   },
 
 ];
@@ -313,32 +276,14 @@ function MergeRequest() {
       
   ) : (
       <div className="table-container">
-      <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy"  />
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV"  />
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel"  />
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF"  />
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print"  />
-            </div>
-         </div>
+    
       <Table
-      tablerow={MergerequestTableData}
+      tablerow={mergeRequestTableData}
       tablehead={tableheadrow}
       checkedRows={checkedRows}
       onCheckboxChange={handleCheckboxChange}
       onDeleteRow={handleDeleteRow}
+      datasource="mergerequestsdata"
     />
     </div>
   )}

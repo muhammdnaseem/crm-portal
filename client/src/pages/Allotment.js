@@ -12,7 +12,7 @@ import { useDataContext } from './DataContext';
 
 function Allotment() {
     const [showForm, setShowForm] = useState(false);
-    const { projectData, blockData } = useDataContext();
+    const { projectData, blockData, allotmentTableData } = useDataContext();
     const [tableData, setTableData] = useState([{ 
     Id: 1, 
     RoleName: "First Role",
@@ -31,26 +31,25 @@ function Allotment() {
 
     const handleSaveAllotmentClick = async (formData) => {
     // Your existing code to save the block
-    const newRole = {
-        customer: formData.customername,
-        referencenum: formData.referencenum,
-        serialnum: formData.serialnum,
-        transferfee: formData.transferfee,
-        agent: formData.agent,
-        plot1: formData.plot1,
-        plot2: formData.plot2,
-        cniccopy: formData.cniccopy,
+    const newAllotment = {
+        project: formData.project,
+        block: formData.block,
+        fileno: formData.fileno,
+        size: formData.size,
+        status: formData.status,
+        filefeature: formData.filefeature,
+
     };
 
-    console.log(newRole);
+    console.log(newAllotment);
 
     try {
-      const response = await fetch('http://localhost:4000/mergerequest', {
+      const response = await fetch('http://localhost:4000/allotment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newRole),
+        body: JSON.stringify(newAllotment),
       });
 
       if (!response.ok) {
@@ -70,6 +69,7 @@ function Allotment() {
             title: "Project",
             type: "select",
             options: projectData.map(project => project.projectname),
+            values: projectData.map(project => project.id),
             rows: 0,
             placeholder: "Type display Name"
         },
@@ -77,6 +77,7 @@ function Allotment() {
             title: "Block",
             type: "select",
             options: blockData.map(block => block.blockname),
+            values: blockData.map(block => block.id),
             rows: 0,
             placeholder: "Type display Name"
         },
@@ -84,19 +85,19 @@ function Allotment() {
             title: "File No",
             type: "text",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type File No"
         },
         {
             title: "Size",
             type: "select",
-            options: ["agent-1", "agent-2", "agent-3"],
+            options: ["7 marlas", "10 marlas", "20 marlas"],
             rows: 0,
             placeholder: "Type display Name"
         },
         {
             title: "Status",
             type: "select",
-            options: ["plot-1", "plot-2", "plot-3"],
+            options: ["sold out", "for sale"],
             rows: 0,
             placeholder: "Type display Name"
         },
@@ -104,7 +105,7 @@ function Allotment() {
             title: "File Feature",
             type: "text",
             rows: 0,
-            placeholder: "Type display Name"
+            placeholder: "Type File Feature"
         },
         
 
@@ -127,11 +128,9 @@ function Allotment() {
     col2: "Project",
     col3: "Block",
     col4: "File No",
-    col5: "Plot Second",
-    col6: "Size",
-    col7: "Price",
-    col8: "Type",
-    col9: "Status",
+    col5: "Size",
+    col6: "Status",
+    col7: "File Feature"
   },
   // Add more header columns if needed
 ];
@@ -159,9 +158,11 @@ const initialtableData = [
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add Allotment Request" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddAllotmentClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Role" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddAllotmentClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -171,27 +172,12 @@ const initialtableData = [
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddAllotmentClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddAllotmentClick}/>
-            </div>
          
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddAllotmentClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddAllotmentClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddAllotmentClick}/>
-            </div>
-         </div>
-            <Table tablerow={tableData} tablehead={tableheadrow}/>
+            <Table 
+            tablerow={allotmentTableData} 
+            tablehead={tableheadrow}
+            datasource="allotmentsdata"
+            />
         </div>
         </div>
       

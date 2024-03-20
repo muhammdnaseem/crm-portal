@@ -57,6 +57,7 @@ function Inventory() {
             title: "Project",
             type: "select",
             options: projectData.map(project => project.projectname),
+            values: projectData.map(project => project.id),
             rows: 0,
             placeholder: "---Choose---"
         },
@@ -64,6 +65,7 @@ function Inventory() {
             title: "Block",
             type: "select",
             options: blockData.map(block => block.blockname),
+            values: blockData.map(block => block.id),
             rows: 0,
             placeholder: "---Choose---"
         },
@@ -87,16 +89,16 @@ function Inventory() {
             placeholder: "---Choose---"
         },
         {
-            title: "Type",
+            title: "Status",
             type: "select",
             options: ["Open", "Sold out", "Token"],
             rows: 0,
             placeholder: "---Choose---"
         },
         {
-            title: "Status",
+            title: "File Feature",
             type: "select",
-            options: ["Open", "Sold out", "Token"],
+            options: ["Corner", "Park", "General", "Commercial Area"],
             rows: 0,
             placeholder: "---Choose---"
         },
@@ -219,29 +221,11 @@ function Inventory() {
       
   ) : (
       <div className="table-container">
-      <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy"  />
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV"  />
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel"  />
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF"  />
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print"  />
-            </div>
-         </div>
+      
       <Table
       tablerow={inventoryTableData}
       tablehead={tableheadrow}
+      datasource="inventorydata"
       checkedRows={checkedRows}
       onCheckboxChange={handleCheckboxChange}
       onDeleteRow={handleDeleteRow}

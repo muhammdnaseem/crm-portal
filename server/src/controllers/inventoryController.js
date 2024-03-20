@@ -89,7 +89,8 @@ const deleteInventory = async (req, res) => {
 const getInventory = async (req, res) => {
     try {
         // Select data from the "blocks" table
-        const sql = "SELECT * FROM inventory";
+        const sql = "SELECT inventory.*, projects.projectname AS project_name, blocks.blockname AS block_name, bookingforms.file_id AS file_num, size.size AS size_name, type.type AS type_name, status.status AS status_name FROM inventory INNER JOIN projects ON inventory.project_id = projects.id INNER JOIN blocks ON inventory.block_id = blocks.id INNER JOIN bookingforms ON inventory.file_no = bookingforms.id INNER JOIN size ON inventory.size_id = size.id INNER JOIN type ON inventory.type_id = type.id INNER JOIN status ON inventory.status_id = status.id";
+        
         
         con.query(sql, (error, result) => {
             if (error) {

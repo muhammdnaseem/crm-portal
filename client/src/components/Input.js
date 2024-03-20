@@ -48,15 +48,16 @@ function Input({
             onChange={handleChange}
           ></textarea>
         ) : inputtype === 'select' ? (
-               <select
+              <select
   className={inputtype === 'select' ? 'selectclass' : 'submit-button'}
   onChange={handleChange}
 >
-  <option key="default" selected disabled>--- Choose ---</option>selectvalues
-  {selectoptions.map((option, index) => (
-    <option key={index}>{option}</option>
+  <option key="default" selected disabled>--- Choose ---</option>
+  {selectoptions && selectoptions.map((option, index) => (
+    <option key={index} value={selectvalues && selectvalues[index]}>{option}</option>
   ))}
 </select>
+
 
 
         ) : inputtype === 'text' ? (
@@ -101,6 +102,7 @@ function Input({
             />
       
         ) : (
+          
       
             <input
               type={inputtype}

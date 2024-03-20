@@ -12,16 +12,19 @@ import { useDataContext } from './DataContext';
 
 function InstallmentType() {
     const [showForm, setShowForm] = useState(false);
+    const { installmenttypeTableData, updateInstallmenttypeData } = useDataContext();
     const [tableData, setTableData] = useState([{ 
     Id: 1, 
     InstallmentTypeName: "First InstallmentType",
     DisplayName: "InstallmentType1",
+    BalloonPayment: "InstallmentType1",
   },
 
    { 
     Id: 2, 
     InstallmentTypeName: "Second InstallmentType",
     DisplayName: "InstallmentType2",
+    BalloonPayment: "InstallmentType1",
   }]);
 
      const handleAddInstallmentTypeClick = () => {
@@ -102,7 +105,6 @@ function InstallmentType() {
     col2: "Time Duration",
     col3: "Value",
     col4: "Baloon Payment",
-    Date: "Action",
   },
   // Add more header columns if needed
 ];
@@ -133,10 +135,12 @@ const initialtableData = [
         <div className="button-container">
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add InstallmentType" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddInstallmentTypeClick}/>
-          </div>  
+          </div> 
+          {/* 
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete InstallmentType" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddInstallmentTypeClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -146,27 +150,9 @@ const initialtableData = [
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddInstallmentTypeClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddInstallmentTypeClick}/>
-            </div>
          
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddInstallmentTypeClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddInstallmentTypeClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddInstallmentTypeClick}/>
-            </div>
-         </div>
-            <Table tablerow={tableData} tablehead={tableheadrow}/>
+            <Table tablerow={installmenttypeTableData} tablehead={tableheadrow}
+            datasource="installmenttypedata"/>
         </div>
         </div>
       

@@ -31,6 +31,7 @@ const setLead = async (req, res) => {
 const updateLead = async (req, res) => {
     
     try {
+        
         const { id, project, name, email, phone, city, status, agent, temperature, source, description } = req.body;
 
         // Ensure required fields are present in the request
@@ -88,7 +89,9 @@ const deleteLead = async (req, res) => {
 const getLead = async (req, res) => {
     try {
         // Select data from the "blocks" table
-        const sql = "SELECT * FROM leads";
+        const sql = "SELECT leads.*, projects.projectname AS project_name, agents.name AS agent_name FROM leads INNER JOIN projects ON leads.project_id = projects.id INNER JOIN agents ON leads.agent_id = agents.id";
+
+        
         
         con.query(sql, (error, result) => {
             if (error) {

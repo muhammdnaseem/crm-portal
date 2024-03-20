@@ -90,10 +90,9 @@ const deleteProject = async (req, res) => {
 
 
 const getProject = async (req, res) => {
-    
     try {
-        // Select data from the "projects" table
-        const sql = "SELECT * FROM projects";
+        // Join query to retrieve project details along with agent name
+        const sql = "SELECT projects.*, agents.name AS agent_name, blocks.blockname AS block_name FROM projects INNER JOIN agents ON projects.agent_id = agents.id INNER JOIN blocks ON projects.block_id = blocks.id";
         
         con.query(sql, (error, result) => {
             if (error) {
@@ -101,7 +100,7 @@ const getProject = async (req, res) => {
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
             }
 
-            console.log("Projects successfully retrieved from the database");
+            console.log("Projects successfully retrieved from the database with agent names");
             res.status(200).json(result); // Sending the result (rows) as a JSON response
         });
 
@@ -110,5 +109,6 @@ const getProject = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
+
 
 module.exports = { setProject, getProject, updateProject, deleteProject };

@@ -82,8 +82,9 @@ function Features() {
  const tableheadrow = [
   {
     col1: "Feature ID",
-    col2: "Name",
-    col3: "Slug",
+    col2: "Order",
+    col3: "Name",
+    col4: "Slug",
   },
   // Add more header columns if needed
 ];
@@ -97,9 +98,11 @@ function Features() {
         <div className="add-button">
             <Button buttonClass="colored-button" title="Add Feature" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddFeatureClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Feature" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddFeatureClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -108,27 +111,12 @@ function Features() {
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddFeatureClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="#800080" title="CSV" clickfunction={handleAddFeatureClick}/>
-            </div>
          
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddFeatureClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" title="PDF" clickfunction={handleAddFeatureClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="#01b8f6" title="Print" clickfunction={handleAddFeatureClick}/>
-            </div>
-         </div>
-            <Table tablerow={featuresTableData} tablehead={tableheadrow}/>
+            <Table 
+            tablerow={featuresTableData} 
+            tablehead={tableheadrow}
+            datasource="featuresdata"
+            />
         </div>
         </div>
       

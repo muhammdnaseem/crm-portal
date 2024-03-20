@@ -19,6 +19,7 @@ function TableRow({ input, source, isHeader, onCheckboxChange, onDeleteRow }) {
   };
 
   const handleEditClick = () => {
+
     setSelectedRow(input);
     setShowEditPopup(true);
     setFormData(input);
@@ -61,10 +62,13 @@ const handleInputChange = (e) => {
     }
   };
 
+
   useEffect(() => {
     if (showEditPopup) {
+     
       setFormData(selectedRow); // Update formData when selectedRow changes
     }
+
   }, [selectedRow, showEditPopup]);
 
 
@@ -106,14 +110,14 @@ const handleDeleteClick = async () => {
         return (
           <Fade key={index} top cascade>
             <th style={{ width: '30px' }}></th>
-            <th>{value}</th>
+            <th className="tablecolumn">{value}</th>
           </Fade>
         );
       }
 
       return (
         <Fade key={index} top cascade>
-          <th>{value}</th>
+          <th className="tablecolumn">{value}</th>
         </Fade>
       );
     }
@@ -124,25 +128,25 @@ const handleDeleteClick = async () => {
           <td style={{ width: '30px' }}>
             <input type="checkbox" />
           </td>
-          <td>{value}</td>
+          <td className="tablecolumn">{value}</td>
         </Fade>
       );
     }
 
     return (
       <Fade key={index} top cascade>
-        <td>{value}</td>
+        <td className="tablecolumn">{value}</td>
       </Fade>
     );
   });
 
   const lastCell = isHeader ? (
     <Fade top cascade>
-      <th>Actions</th>
+      <th className="tablecolumn">Actions</th>
     </Fade>
   ) : (
     <Fade top cascade>
-      <td>
+      <td className="tablecolumn">
         <FaEye className="view" onClick={handleViewClick} />
         <FaRegEdit className="update" onClick={handleEditClick}/>
         <MdDelete className="delete" onClick={handleDeleteClick}/>
@@ -163,7 +167,7 @@ const handleDeleteClick = async () => {
                 </tr>
               ))}
             </table>
-            <button onClick={() => setShowViewPopup(false)}>Close</button>
+            <button onClick={() => setShowViewPopup(false)} className="updatebutton">Close</button>
           </div>
         </div>
       )}
@@ -171,6 +175,7 @@ const handleDeleteClick = async () => {
       {showEditPopup && (
   <div className="popup-overlay">
     <div className="popup">
+    {console.log("Edit form is rendered")}
       <form className="editform" onSubmit={handleFormSubmit}>
         {selectedRow && Object.entries(selectedRow).map(([key, value]) => (
           <div key={key}>
@@ -183,9 +188,9 @@ const handleDeleteClick = async () => {
                     />
           </div>
         ))}
-        <button type="submit">Update</button>
+        <button type="submit" className="updatebutton">Update</button>
       </form>
-      <button onClick={() => setShowEditPopup(false)}>Close</button>
+      <button onClick={() => setShowEditPopup(false)} className="updatebutton">Close</button>
     </div>
   </div>
 )}

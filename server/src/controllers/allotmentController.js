@@ -1,25 +1,25 @@
 const con = require("../db/dbCon");
 
-const setInstallmentType = async (req, res) => {
- 
+const setAllotment = async (req, res) => {
+    
     try {
-        const { addinstallment, value, balloonpayment} = req.body;
+        const { project, block, fileno, size, status, filefeature} = req.body;
 
         // Ensure required fields are present in the request
-        if (!addinstallment || !value || !balloonpayment ) {
+        if ( !project || !block || !fileno || !size || !status || !filefeature ) {
             return res.status(400).json({ error: "Missing required fields." });
         }
 
         // Insert user into the "users" table
-       const sql = "INSERT INTO installmenttype (installment, value, balloon_payment) VALUES (?, ?, ?)";
-        con.query(sql, [addinstallment, value, balloonpayment], (error, result) => {
+       const sql = "INSERT INTO allotments (project_id, block_id, file_no, size_id, status_id, file_feature) VALUES (?, ?, ?, ?, ?, ?)";
+        con.query(sql, [project, block, fileno, size, status, filefeature], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
             }
 
-            console.log("Fee successfully saved to the database");
-            res.status(200).json({ message: "Installment Type Request successfully saved to the database" });
+            console.log("Category successfully saved to the database");
+            res.status(200).json({ message: "Role successfully saved to the database" });
         });
 
 
@@ -30,20 +30,21 @@ const setInstallmentType = async (req, res) => {
     }
 };
 
-const updateInstallmentType = async (req, res) => {
+
+const updateAllotment = async (req, res) => {
     
     try {
-        const { id, installmenttypename, displayname, balloonpayment } = req.body;
+        const { id, project, block, fileno, size, status, filefeature } = req.body;
 
         // Ensure required fields are present in the request
-        if (!id || !installmenttypename || !displayname || !balloonpayment) {
+        if (!id || !project || !block || !fileno || !size || !status || !filefeature ) {
             return res.status(400).json({ error: "Missing required fields." });
         }
 
         // Update project in the "projects" table
-        const sql = "UPDATE installmenttype SET installment = ?, value = ?, balloon_payment = ? WHERE id = ?";
+        const sql = "UPDATE allotments SET project_id = ?, block_id = ?, file_no = ?, size_id = ?, status_id = ?, file_feature = ? WHERE id = ?";
 
-        con.query(sql, [installmenttypename, displayname, balloonpayment, id], (error, result) => {
+        con.query(sql, [project, block, fileno, size, status, filefeature, id], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
@@ -59,7 +60,7 @@ const updateInstallmentType = async (req, res) => {
     }
 };
 
-const deleteInstallmentType = async (req, res) => {
+const deleteAllotment = async (req, res) => {
     try {
         const { id } = req.body;
 
@@ -69,7 +70,7 @@ const deleteInstallmentType = async (req, res) => {
         }
 
         // Delete project from the "projects" table
-        const sql = "DELETE FROM installmenttype WHERE id = ?";
+        const sql = "DELETE FROM allotments WHERE id = ?";
         con.query(sql, [id], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
@@ -86,10 +87,12 @@ const deleteInstallmentType = async (req, res) => {
     }
 };
 
-const getInstallmentType = async (req, res) => {
+
+const getAllotment = async (req, res) => {
     try {
         // Select data from the "blocks" table
-        const sql = "SELECT * FROM installmenttype";
+        const sql = "SELECT allotments.*, projects.projectname AS project_name, blocks.blockname AS block_name, bookingforms.file_id AS file_num FROM allotments INNER JOIN projects ON allotments.project_id = projects.id INNER JOIN blocks ON allotments.block_id = blocks.id INNER JOIN bookingforms ON allotments.file_no = bookingforms.id";
+        
         
         con.query(sql, (error, result) => {
             if (error) {
@@ -97,7 +100,7 @@ const getInstallmentType = async (req, res) => {
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
             }
 
-            console.log("Category successfully retrieved from the database");
+            console.log("Role successfully retrieved from the database");
             res.status(200).json(result); // Sending the result (rows) as a JSON response
         });
 
@@ -107,4 +110,4 @@ const getInstallmentType = async (req, res) => {
     }
 };
 
-module.exports = { setInstallmentType, getInstallmentType, updateInstallmentType, deleteInstallmentType };
+module.exports = { setAllotment, getAllotment, updateAllotment, deleteAllotment };

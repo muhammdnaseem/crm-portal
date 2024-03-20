@@ -31,17 +31,17 @@ const setUser = async (req, res) => {
 const updateUser = async (req, res) => {
     
     try {
-        const { id, name, email, password, defaultrole, additionalrole, locale, image } = req.body;
+        const { id, name, email, defaultrole, additionalrole, locale, image } = req.body;
 
         // Ensure required fields are present in the request
-        if (!id || !name || !email || !password || !defaultrole || !additionalrole || !locale || !image) {
+        if (!id || !name || !email || !defaultrole || !additionalrole || !locale || !image) {
             return res.status(400).json({ error: "Missing required fields." });
         }
 
         // Update project in the "projects" table
-        const sql = "UPDATE user SET name = ?, email = ?, password = ?, default_role_id = ?, additional_role_id = ?, locale = ?, image = ? WHERE id = ?";
+        const sql = "UPDATE user SET name = ?, email = ?, default_role_id = ?, additional_role_id = ?, locale = ?, image = ? WHERE id = ?";
 
-        con.query(sql, [name, email, password, defaultrole, additionalrole, locale, image, id], (error, result) => {
+        con.query(sql, [name, email, defaultrole, additionalrole, locale, image, id], (error, result) => {
             if (error) {
                 console.error("Error executing SQL query:", error);
                 return res.status(500).json({ error: "Internal Server Error", details: error.message });
@@ -88,7 +88,8 @@ const deleteUser = async (req, res) => {
 const getUser = async (req, res) => {
     try {
         // Select data from the "blocks" table
-        const sql = "SELECT * FROM user";
+        const sql = "SELECT user.*, default_roles.name AS default_role_name, additional_roles.name AS additional_role_name FROM user INNER JOIN roles AS default_roles ON user.default_role_id = default_roles.id INNER JOIN roles AS additional_roles ON user.additional_role_id = additional_roles.id";
+         
         
         con.query(sql, (error, result) => {
             if (error) {

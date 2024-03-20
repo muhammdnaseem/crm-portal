@@ -1,55 +1,43 @@
+// LoginForm.js
 import React, { useState } from 'react';
-import '../assets/css/login.css';
+import '../assets/css/login.css'; // Import your CSS file
 
-const LoginForm = ({onLogin}) => {
-  // State to manage form inputs
+function LoginForm({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your login logic here using the 'username' and 'password' state values
-    console.log('Username:', username);
-    console.log('Password:', password);
-    
-    
+    onLogin(username, password);
   };
 
   return (
-    <div className="login-box">
-      <h2>Login</h2>
-      <form >
-        <div className="user-box">
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <label>Username</label>
-        </div>
-        <div className="user-box">
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <label>Password</label>
-        </div>
-        <button type="submit" onClick={onLogin}>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          Submit
-        </button>
+    <div className="background">
+      <div className="company">
+        <h3>
+          <img src={require("../assets/images/crmlogo.png")} alt="CRM Logo" className="crmloginlogo" />
+        </h3>
+        <p>
+          Visit Our Website:
+          <a href="https://echoglitch.co/"> www.echoglitch.co </a>
+        </p>
+      </div>
+      <div className="shape shape1"></div>
+      <div className="shape shape2"></div>
+      <form onSubmit={handleSubmit}>
+        <img src={require("../assets/images/crmlogo.png")} alt="CRM Logo" className="crmlogo" />
+        <h3>Login Here</h3>
+
+        <label htmlFor="username">Username</label>
+        <input type="text" placeholder="Email or Phone" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+
+        <label htmlFor="password">Password</label>
+        <input type="password" placeholder="Password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+        <button type="submit" className="login">Log In</button>
       </form>
     </div>
   );
-};
+}
 
 export default LoginForm;

@@ -12,7 +12,7 @@ import { useDataContext } from './DataContext';
 
 function Projects() {
   const [showForm, setShowForm] = useState(false);
-  const { projectData, projectsTableData, updateProjectData, blockData } = useDataContext();
+  const { projectData, projectsTableData, updateProjectData, blockData, agentsData } = useDataContext();
   const [checkedRows, setCheckedRows] = useState([]);
 
 
@@ -21,7 +21,8 @@ const [inputs, setInputs] = useState([
             title: "Project Name",
             type: "text",
             rows: 0,
-            placeholder: "Type project name"
+            placeholder: "Type project name",
+            
         },
         {
             title: "Description",
@@ -41,6 +42,7 @@ const [inputs, setInputs] = useState([
             title: "Blocks",
             type: "select",
             options: blockData.map(block => block.blockname),
+            values: blockData.map(block => block.id),
             rows: 0,
             placeholder: "Type blocks"
         },
@@ -48,7 +50,8 @@ const [inputs, setInputs] = useState([
         {
             title: "Agent",
             type: "select",
-            options: ["", ""],
+            options: agentsData.map(agent => agent.name),
+            values: agentsData.map(agent => agent.id),
             rows: 0,
             placeholder: "Type Agent name"
         },
@@ -156,6 +159,7 @@ const [inputs, setInputs] = useState([
             clickfunction={handleAddProjectClick}
           />
         </div>
+        {/*
         <div className="delete-button">
           <Button
             buttonClass="transparent-button"
@@ -164,6 +168,7 @@ const [inputs, setInputs] = useState([
             clickfunction={handleDeleteProjectClick}
           />
         </div>
+        */}
       </div>
      {showForm && 
                  <Fade top>

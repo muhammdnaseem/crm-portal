@@ -8,9 +8,12 @@ import Table from '../components/Table';
 import Fade from 'react-reveal/Fade';
 import { MdDelete } from "react-icons/md";
 import {styles} from '../constants/styles';
+import { useDataContext } from './DataContext';
 
 function CancellationCreate() {
     const [showForm, setShowForm] = useState(false);
+    const {agentsData, agentsTableData, cancellationTableData, customerData} = useDataContext();
+
     const [tableData, setTableData] = useState([{ 
     Id: 1, 
     CancellationName: "First Cancellation",
@@ -36,9 +39,9 @@ function CancellationCreate() {
         reason: formData.reason,
         cancellationfee: formData.cancellationfee,
         cniccopy: formData.cniccopy,
-        downpaymentreceipt: formData.downpaymentreceipt,
+        downpaymentreceipt: formData.downpaymentreceipt || " ",
         allotmentcertificate: formData.allotmentcertificate,
-        cancellationrequestletter: formData.cancellationrequestletter,
+        cancellationrequestletter: formData.cancellationrequestletter || " ",
     };
 
     console.log(newCancellation);
@@ -73,7 +76,8 @@ function CancellationCreate() {
         {
             title: "Customer Name",
             type: "select",
-            options: ["customer 1", "customer 2"],
+            options: customerData.map(customer => customer.customer_name),
+            values: customerData.map(customer => customer.id),
             rows: 0,
             placeholder: "Type display Name"
         },
@@ -139,14 +143,15 @@ function CancellationCreate() {
  const tableheadrow = [
   {
     col1: "ID",
-    col2: "Customer Name",
-    col3: "Agent",
-    col4: "Plot First",
-    col5: "Plot Second",
-    col6: "Fee",
-    col7: "Date",
-    col8: "Created by",
-    col9: "Status",
+    col2: "Serial Num",
+    col3: "Customer Name",
+    col4: "Booking Ref",
+    col5: "Reason",
+    col6: "Cancellation Fee",
+    col7: "CNIC Copy",
+    col8: "Downpayment Receipt",
+    col9: "Allotment Cert",
+    col10: "Cancel Req Letter",
   },
   // Add more header columns if needed
 ];
@@ -174,9 +179,11 @@ const initialtableData = [
         <div className="add-button">
             <Button buttonClass="colored-button" title="New Cancellation" icon={<CiCirclePlus iconclass="colored-icon" />} clickfunction={handleAddCancellationClick}/>
           </div>  
+          {/*
         <div className="delete-button">
             <Button buttonClass="transparent-button" title="Delete Cancellation" icon={<MdDelete iconclass="transparent-icon" />} clickfunction={handleAddCancellationClick}/>
             </div>
+            */}
          </div>
             {showForm && 
                  <Fade top>
@@ -186,27 +193,10 @@ const initialtableData = [
             }
       
          <div className="table-container">
-          <div className="button-container mt-3">
-        <div className="add-button">
-            <Button style={styles.circlebutton} buttonColor="blue" title="Copy" clickfunction={handleAddCancellationClick}/>
-          </div>  
-        <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="skyblue" title="CSV" clickfunction={handleAddCancellationClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="green" title="Excel" clickfunction={handleAddCancellationClick}/>
-            </div>
-        
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="red" buttonColor="blue" title="PDF" clickfunction={handleAddCancellationClick}/>
-            </div>
-         
-          <div className="delete-button">
-            <Button style={styles.circlebutton} buttonColor="pink" title="Print" clickfunction={handleAddCancellationClick}/>
-            </div>
-         </div>
-            <Table tablerow={tableData} tablehead={tableheadrow}/>
+          
+            <Table tablerow={cancellationTableData} tablehead={tableheadrow}
+            datasource="cancellationdata"
+            />
         </div>
         </div>
       
