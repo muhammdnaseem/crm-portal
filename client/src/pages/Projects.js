@@ -87,7 +87,7 @@ const [inputs, setInputs] = useState([
     console.log(newProject);
 
     try {
-        const response = await fetch('http://localhost:4000/projects', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/projects`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

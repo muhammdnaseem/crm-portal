@@ -29,7 +29,7 @@ function InstallmentPeriod() {
     console.log(newInstallmentPeriod);
 
     try {
-      const response = await fetch('http://localhost:4000/installmentperiod', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/installmentperiod`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

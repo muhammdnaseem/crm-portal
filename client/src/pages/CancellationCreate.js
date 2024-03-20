@@ -47,7 +47,7 @@ function CancellationCreate() {
     console.log(newCancellation);
 
     try {
-      const response = await fetch('http://localhost:4000/cancellation', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/cancellation`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

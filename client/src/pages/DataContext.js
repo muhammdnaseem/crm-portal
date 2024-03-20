@@ -80,7 +80,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getprojects', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getprojects`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getblocks', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getblocks`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getagents', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getagents`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -205,7 +205,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getusers', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getusers`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -247,7 +247,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getcategories', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getcategories`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -284,7 +284,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getfeatures', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getfeatures`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -324,7 +324,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getinventory', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getinventory`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -369,7 +369,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getfee', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getfee`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -408,7 +408,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getrole', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getrole`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -445,7 +445,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getuser', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getuser`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -484,7 +484,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getlead', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getlead`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -529,7 +529,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/gettoken', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/gettoken`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -573,7 +573,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getinstallment', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getinstallment`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -619,7 +619,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getinstallmentperiod', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getinstallmentperiod`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -654,7 +654,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getinstallmenttype', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getinstallmenttype`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -693,7 +693,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getallotment', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getallotment`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -734,7 +734,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getmergerequest', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getmergerequest`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -775,7 +775,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getbooking', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getbooking`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -889,7 +889,7 @@ export const DataProvider = ({ children }) => {
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getcancellation', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getcancellation`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -938,7 +938,7 @@ useEffect(() => {
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/gettransfer', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/gettransfer`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -981,7 +981,7 @@ useEffect(() => {
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getcustomer', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/getcustomer`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -6,10 +6,11 @@ import App from '../App'; // Import your main App component
 function LoginPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState(null);
+console.log(process.env.REACT_APP_BASE_URL);
 
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch('http://localhost:4000/getusercrediantial', {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/getusercrediantial`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -37,6 +38,7 @@ function LoginPage() {
 
   return (
     <React.Fragment>
+    
       {isLoggedIn ? (
         <App /> // Render App component if user is logged in
       ) : (

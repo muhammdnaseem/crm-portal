@@ -39,7 +39,7 @@ function Roles() {
     console.log(newRole);
 
     try {
-      const response = await fetch('http://localhost:4000/role', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/role`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

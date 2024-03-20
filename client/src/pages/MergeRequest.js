@@ -192,7 +192,7 @@ function MergeRequest() {
     console.log(newMergerequest);
 
     try {
-      const response = await fetch('http://localhost:4000/mergerequest', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/mergerequest`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

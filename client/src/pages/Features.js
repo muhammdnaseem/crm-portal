@@ -60,7 +60,7 @@ function Features() {
     console.log(newCategory);
 
     try {
-      const response = await fetch('http://localhost:4000/features', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/features`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

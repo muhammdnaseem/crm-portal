@@ -30,7 +30,7 @@ const { projectData, blocksTableData, updateBlockData } = useDataContext();
     console.log(newBlock);
 
     try {
-      const response = await fetch('http://localhost:4000/blocks', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/blocks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

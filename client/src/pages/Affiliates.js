@@ -134,7 +134,7 @@ const handleSaveAgentClick = async (formData) => {
     console.log(newAgent);
 
     try {
-      const response = await fetch('http://localhost:4000/agents', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/agents`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -44,7 +44,7 @@ function Allotment() {
     console.log(newAllotment);
 
     try {
-      const response = await fetch('http://localhost:4000/allotment', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/allotment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -199,7 +199,7 @@ const handleSaveBookingFormClick = async (formData) => {
 
 
     try {
-      const response = await fetch('http://localhost:4000/booking', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/booking`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
